@@ -1,0 +1,26 @@
+{
+    "server_name": "Zerux Brawl", // name, used in zerux brawl main.py
+    "version": "15.140", // version, used in zerux brawl main.py
+    "bot_version": "1.0.7", // used in /info command
+    "server_version": "1.0.0", // used in /info command
+    "changelog": "\n \n 1.0.0 to 1.0.5\n\n - fixes to the bot \n\n 1.0.6 \n \n - Added Leaderboard \n - Added Database Related Commands \n -Added Login System \n\n 1.0.7 \n\n - Fixed /addtrophy, /resetclubs, /resetall!", // also used in /info command
+    "database": "", // blank, used for automatic database identification in main.py
+    "source": "Zerux Brawl DEV Channel", // used in main.py
+    "info": "This is a test, there can be errors", // also used in main.py
+    "connection_ip": "0.0.0.0", // hosted ip, used in main.py
+    "port": 1234, // hosted port, used in main.py
+    "end_message": "You still here? Go log in bro!", // used in main.py
+    "telegram_bot_token": "my bot token was here", // bot token
+    "isdev": [ // tg admin commands? (i forgot)
+        2082010595,
+        6610844279
+    ],
+    "support_group_id": "developer team id was here", // used while sending support messages, news and admin applications
+    "admin_ids": [
+        "2082010595",
+        "1234567890"
+    ],
+    "server_ip": "my server ip was here", // used in /status command to get ping (/status command is dead btw(
+    "news_message": "No news available.", // unused probally
+    "info_images": "" // image links to be posted when /info command is sent
+}
