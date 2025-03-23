@@ -21,3 +21,7 @@ telegram bot for zerux brawl legacy (15.140)
   - add club to profile viewer
   - add lowid to profile viewer
   - improve the bot basically
+
+# how to run?
+
+- make main.py yourself and use this bot, i wont share zerux team main.py since its private work
