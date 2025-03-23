@@ -1,3 +1,5 @@
+# bot made by RicoDEV, if you plan to use this, credit me
+
 import logging
 import telebot
 import json
