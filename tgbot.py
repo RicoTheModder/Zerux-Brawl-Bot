@@ -489,7 +489,3 @@ class TelegramBot:
 
     def run(self):
         self.bot.infinity_polling()
-
-if __name__ == "__main__":
-    TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-    TelegramBot(TOKEN).run()
