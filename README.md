@@ -14,13 +14,17 @@ telegram bot for zerux brawl legacy (15.140)
 - support system
 - news for all users
 - leaderboard system by viewing database
+- adding gold
+- adding trophy (buggy!)
+- change theme id
+- club in profile viewer (NEW)
+- lowid in profile viewer (NEW)
+- token in profile viewer (NEW)
 
   # to do:
-
-  - change theme id
-  - add club to profile viewer
-  - add lowid to profile viewer
-  - improve the bot basically
+  
+  - fix bugs based in the reply handler
+  - add commands (maybe)
 
 # how to run?
 
