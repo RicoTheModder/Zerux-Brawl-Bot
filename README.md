@@ -20,11 +20,17 @@ telegram bot for zerux brawl legacy (15.140)
 - club in profile viewer (NEW)
 - lowid in profile viewer (NEW)
 - token in profile viewer (NEW)
+- set maintenance status (NEW)
 
-  # to do:
-  
-  - fix bugs based in the reply handler
-  - add commands (maybe)
+  ##Whats new in bot ver 1.0.9?
+
+  - fixes to reply handler
+  - other bugfixes
+ 
+  ## to do
+
+  - add club id viewer
+  - fix club remove commands (/resetall, /resetclubs)
 
 # how to run?
 
