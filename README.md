@@ -22,12 +22,12 @@ telegram bot for zerux brawl legacy (15.140)
 - token in profile viewer (NEW)
 - set maintenance status (NEW)
 
-  ##Whats new in bot ver 1.0.9?
+##Whats new in bot ver 1.0.9?
 
   - fixes to reply handler
   - other bugfixes
  
-  ## to do
+# to do
 
   - add club id viewer
   - fix club remove commands (/resetall, /resetclubs)
