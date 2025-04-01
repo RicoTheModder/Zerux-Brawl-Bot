@@ -72,7 +72,7 @@ class TelegramBot:
     def __init__(self, token):
         self.bot = telebot.TeleBot(token)
         self.server_config = load_server_config()  # server settings & token etc.
-        self.user_config = load_user_config()      # user settings from config.json
+        self.user_config = load_user_config()        # user settings from config.json
         self.support_group_id = self.server_config.get("support_group_id")
         self.admin_ids = self.server_config.get("admin_ids", [])
         
@@ -253,7 +253,7 @@ class TelegramBot:
                 name=account.get('name', 'N/A'),
                 token=account.get('token', 'N/A'),
                 lowID=account.get('lowID', 'N/A'),
-                trophies=account.get('tories', 0),
+                trophies=account.get('trophies', 0),
                 highesttrophies=account.get('highesttrophies', 0),
                 soloWins=account.get('soloWins', 0),
                 duoWins=account.get('duoWins', 0),
@@ -350,6 +350,7 @@ class TelegramBot:
 
         # -------------------------
         # Unban, Ban, and Mute Support/Admin Commands
+        # (These now also work for admin requests forwarded messages)
         # -------------------------
         @self.bot.message_handler(commands=['unban_support'])
         def unban_support(message):
@@ -489,19 +490,16 @@ class TelegramBot:
 
         # -------------------------
         # Reply Handler for Support/Admin Moderation
-        # Updated to avoid unnecessary "original user not found" messages
+        # (Now supports /ban_support, /unban_support, /mute_support when replying to forwarded messages)
         # -------------------------
         @self.bot.message_handler(func=lambda m: m.reply_to_message is not None)
         def handle_reply(m):
             self.all_users.add(m.chat.id)
-            # Only process replies in the support group and by admins
-            if str(m.chat.id) != str(self.support_group_id) or not is_admin(m.chat.id, self.admin_ids):
-                return  # Ignore replies outside support group or by non-admins
-            
             original_message_id = m.reply_to_message.message_id
             user_chat_id = self.get_user_chat_id(original_message_id)
-            sender = self.get_formatted_username(m.chat.id, m) + " from Support Team"
-
+            sender = self.get_formatted_username(m.chat.id, m)
+            if m.chat.id in self.admin_ids:
+                sender += " from Support Team"
             if user_chat_id:
                 reply_text = m.text.strip()
                 lower_reply = reply_text.lower()
@@ -538,8 +536,7 @@ class TelegramBot:
                 else:
                     self.bot.send_message(user_chat_id, f"Reply from Support Team ({sender}): {reply_text}")
                     self.bot.send_message(m.chat.id, f"Message sent by {sender}.")
-            else:
-                self.bot.send_message(m.chat.id, "Original user not found for this message.")
+
 
         # -------------------------
         # /maintenance Command (Admin Only)
@@ -688,7 +685,7 @@ class TelegramBot:
                     break
             if found:
                 save_accounts(accounts_data)
-                self.bot.send_message(message.chat.id, f"Gold for account '{account_name}' have been set to {amount}.")
+                self.bot.send_message(message.chat.id, f"Gold for account '{account_name}' has been set to {amount}.")
             else:
                 self.bot.send_message(message.chat.id, f"Account '{account_name}' not found.")
 
@@ -804,7 +801,7 @@ class TelegramBot:
 
     # -------------------------
     # Helper method to format usernames with '@'
-    # Updated to use message info when available
+    # Updated to use message info when available.
     # -------------------------
     def get_formatted_username(self, chat_id, message=None):
         if message is not None and hasattr(message, "from_user"):
@@ -824,17 +821,17 @@ class TelegramBot:
     # -------------------------
     def save_forwarded_message(self, forwarded_message_id, user_chat_id):
         try:
-            with open("forwarded_messages.json", "r", encoding="utf-8") as file:
+            with open("JSON/forwarded_messages.json", "r", encoding="utf-8") as file:
                 data = json.load(file)
         except (FileNotFoundError, json.JSONDecodeError):
             data = {}
         data[str(forwarded_message_id)] = user_chat_id
-        with open("forwarded_messages.json", "w", encoding="utf-8") as file:
+        with open("JSON/forwarded_messages.json", "w", encoding="utf-8") as file:
             json.dump(data, file)
 
     def get_user_chat_id(self, forwarded_message_id):
         try:
-            with open("forwarded_messages.json", "r", encoding="utf-8") as file:
+            with open("JSON/forwarded_messages.json", "r", encoding="utf-8") as file:
                 data = json.load(file)
             return data.get(str(forwarded_message_id))
         except (FileNotFoundError, json.JSONDecodeError):
